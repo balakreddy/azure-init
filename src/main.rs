@@ -107,6 +107,9 @@ async fn provision() -> Result<(), anyhow::Error> {
         .clone()
         .ok_or::<LibError>(LibError::InstanceMetadataFailure)?;
 
+    user::set_ssh_keys(instance_metadata.compute.public_keys, &username)
+        .with_context(|| "Failed to write ssh public keys.")?;
+
     let user = User::new(username, im.compute.public_keys);
 
     Provision::new(im.compute.os_profile.computer_name, user)
