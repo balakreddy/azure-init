@@ -101,6 +101,7 @@ async fn provision() -> Result<(), anyhow::Error> {
 
     // Add user for the passwordless sudo
 <<<<<<< HEAD
+<<<<<<< HEAD
     user::add_user_for_passwordless_sudo(
         username.as_str())
         .with_context(|| format!(
@@ -110,6 +111,11 @@ async fn provision() -> Result<(), anyhow::Error> {
         || format!("Unable to add user for the passwordless sudo '{username}'"),
     )?;
 >>>>>>> 20f9d3f (Enable passwordless sudo for the user)
+=======
+    user::add_user_for_passwordless_sudo(username.as_str()).with_context(
+        || format!("Unable to add user for the passwordless sudo '{username}'"),
+    )?;
+>>>>>>> b523371 (Enable passwordless sudo for the user)
 
     user::set_ssh_keys(instance_metadata.compute.public_keys, &username)
         .with_context(|| "Failed to write ssh public keys.")?;
