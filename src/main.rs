@@ -99,6 +99,12 @@ async fn provision() -> Result<(), anyhow::Error> {
         || format!("Unabled to set an empty password for user '{username}'"),
     )?;
 
+    // Add user for the passwordless sudo
+    user::add_user_for_passwordless_sudo(
+        username.as_str())
+        .with_context(|| format!(
+            "Unable to add user for the passwordless sudo '{username}'"))?;
+
     user::set_ssh_keys(instance_metadata.compute.public_keys, &username)
         .with_context(|| "Failed to write ssh public keys.")?;
 
